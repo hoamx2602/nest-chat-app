@@ -29,7 +29,7 @@ export abstract class AbstractRepository<T extends AbstractEntity> {
   async findOneAndUpdate(
     filterQuery: FilterQuery<T>,
     update: UpdateQuery<T>,
-    queryOption: QueryOptions<T>,
+    queryOption?: QueryOptions<T>,
   ): Promise<T> {
     const document = await this.model
       .findOneAndUpdate(filterQuery, update, queryOption)
