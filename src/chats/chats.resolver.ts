@@ -21,8 +21,9 @@ export class ChatsResolver {
     return this.chatsService.create(createChatInput, user._id);
   }
 
+  @UseGuards(GqlAuthGuard)
   @Query(() => [Chat], { name: 'chats' })
-  findAll() {
+  async findAll() {
     return this.chatsService.findAll();
   }
 
