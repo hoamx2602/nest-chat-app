@@ -29,7 +29,9 @@ export class MessagesResolver {
 
   @Query(() => [Message], { name: 'messages' })
   @UseGuards(GqlAuthGuard)
-  async getMessages(@Args() getMessagesArgs: GetMessagesArgs) {
+  async getMessages(
+    @Args() getMessagesArgs: GetMessagesArgs,
+  ): Promise<Message[]> {
     return this.messagesService.getMessages(getMessagesArgs);
   }
 
