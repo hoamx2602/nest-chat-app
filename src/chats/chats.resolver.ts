@@ -23,7 +23,7 @@ export class ChatsResolver {
 
   @UseGuards(GqlAuthGuard)
   @Query(() => [Chat], { name: 'chats' })
-  async findAll() {
+  async findAll(): Promise<Chat[]> {
     return this.chatsService.findMany();
   }
 
