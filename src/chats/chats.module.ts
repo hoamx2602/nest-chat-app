@@ -6,6 +6,7 @@ import { DatabaseModule } from 'src/common/database/database.module';
 import { MessagesModule } from './messages/messages.module';
 import { ChatDocument, ChatSchema } from './entities/chat.document';
 import { ChatsController } from './chats.controller';
+import { UsersModule } from 'src/users/users.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { ChatsController } from './chats.controller';
       { name: ChatDocument.name, schema: ChatSchema },
     ]),
     forwardRef(() => MessagesModule),
+    UsersModule,
   ],
   providers: [ChatsResolver, ChatsService, ChatsRepository],
   exports: [ChatsRepository],
