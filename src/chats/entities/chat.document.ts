@@ -2,7 +2,7 @@ import { AbstractEntity } from '../../common/database/abstract.entity';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { MessageDocument } from '../messages/entities/message.document';
 
-@Schema()
+@Schema({ versionKey: false, collection: 'chats' })
 export class ChatDocument extends AbstractEntity {
   @Prop()
   userId: string;
