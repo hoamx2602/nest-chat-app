@@ -8,7 +8,7 @@ import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { UsersRepository } from './users.repository';
 import { S3Service } from 'src/common/s3/s3.service';
-import { USERS_BUCKET, USERS_IMAGE_FILE_EXTENSION } from './users.constants';
+import { USERS_IMAGE_FILE_EXTENSION } from './users.constants';
 import { UserDocument } from './entities/user.document';
 import { User } from './entities/user.entity';
 
@@ -81,7 +81,6 @@ export class UsersService {
 
   async uploadImage(file: Buffer, userId: string) {
     await this.s3Service.upload({
-      bucket: USERS_BUCKET,
       key: this.getUserImage(userId),
       file,
     });
@@ -91,7 +90,6 @@ export class UsersService {
     const user = {
       ...userDocument,
       imageUrl: this.s3Service.getObjectUrl(
-        USERS_BUCKET,
         this.getUserImage(userDocument._id.toHexString()),
       ),
     };
