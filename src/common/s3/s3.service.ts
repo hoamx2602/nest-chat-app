@@ -8,8 +8,8 @@ export class S3Service {
   private readonly client: S3Client;
 
   constructor(private readonly configService: ConfigService) {
-    const accessKeyId = configService.get('AWS_ACCESS_KEY');
-    const secretAccessKey = configService.get('AWS_SECRET_ACCESS_KEY');
+    const accessKeyId = configService.get('S3_ACCESS_KEY');
+    const secretAccessKey = configService.get('S3_SECRET_KEY');
 
     const clientConfig: S3ClientConfig = {};
 
@@ -18,22 +18,23 @@ export class S3Service {
         accessKeyId,
         secretAccessKey,
       };
+      clientConfig.region = configService.get('S3_REGION');
     }
 
     this.client = new S3Client(clientConfig);
   }
 
-  async upload({ bucket, key, file }: FileUploadOptions) {
+  async upload({ key, file }: FileUploadOptions) {
     await this.client.send(
       new PutObjectCommand({
-        Bucket: bucket,
+        Bucket: this.configService.get('S3_BUCKET'),
         Key: key,
         Body: file,
       }),
     );
   }
 
-  getObjectUrl(bucket: string, key: string) {
-    return `https://${bucket}.s3.amazonaws.com/${key}`;
+  getObjectUrl(key: string) {
+    return `https://${this.configService.get('S3_BUCKET')}.s3.amazonaws.com/${key}`;
   }
 }
