@@ -23,6 +23,7 @@ import { AuthService } from './auth/auth.service';
       driver: ApolloDriver,
       useFactory: (authService: AuthService) => ({
         autoSchemaFile: true,
+        cors: true,
         //https://docs.nestjs.com/graphql/subscriptions#authentication-over-websockets
         subscriptions: {
           'graphql-ws': {
